@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_tambah_teman"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="glory.golek.TambahTemanActivity">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorKuningKusam"
+        android:orientation="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="50dp"
+                    android:background="#fff"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="1dp">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/et_addteman"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableTint="#0b0b0b"
+                                android:hint="Username Teman"
+                                android:inputType="textEmailAddress"
+                                android:singleLine="true" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <Button
+                            android:id="@+id/btn_addTeman"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="22dp"
+                            android:background="@color/colorPrimary"
+                            android:text="Search"
+                            android:textAllCaps="false"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

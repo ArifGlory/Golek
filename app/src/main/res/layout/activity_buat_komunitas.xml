@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_buat_komunitas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="glory.golek.BuatKomunitasActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/ivContactItem"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_people_black_24dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <EditText
+                android:id="@+id/etNamaKom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_top_bg"
+                android:layout_toEndOf="@id/ivContactItem"
+                android:hint="Nama Komunitas"
+                android:textColor="#000"
+                android:padding="10dp"
+                android:textColorHint="#cccccc"
+                android:layout_toRightOf="@id/ivContactItem" />
+
+        </RelativeLayout>
+
+
+        <include layout="@layout/item_divider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/ivContactItem1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_phone_black"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <EditText
+                android:id="@+id/etEditPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/ivContactItem1"
+                android:background="@drawable/edittext_top_bg"
+                android:hint="Phone number"
+                android:textColor="#000"
+                android:padding="10dp"
+                android:textColorHint="#cccccc"
+                android:layout_toRightOf="@id/ivContactItem1" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/item_divider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/ivContactItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_email_black"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <EditText
+                android:id="@+id/etEditEmail"
+                android:layout_width="match_parent"
+                android:layout_toEndOf="@id/ivContactItem3"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_top_bg"
+                android:hint="Email"
+                android:textColor="#000"
+                android:padding="10dp"
+                android:textColorHint="#cccccc"
+                android:layout_toRightOf="@id/ivContactItem3" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/ivContactItem6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_dns_black_18dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spn_tipeKomunitas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tipe Komunitas"
+                android:textColorHint="#cccccc"
+                android:layout_toRightOf="@+id/ivContactItem6"
+                 />
+
+
+        </RelativeLayout>
+
+        <include layout="@layout/item_divider" />
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/activity_horizontal_margin">
+
+
+
+            <Button
+                android:id="@+id/btn_pickBasecamp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@color/colorPrimary"
+                android:text="Pilih Lokasi Basecamp >>"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:clickable="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/rela_alamat"
+            android:visibility="invisible"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/ivContactItem7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_location_on_black"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/txt_alamat_buatKom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_toEndOf="@id/ivContactItem7"
+                android:text="Alamat"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#212121"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_toRightOf="@id/ivContactItem7" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnCreateKOmunitas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_default_bg"
+            android:padding="10dp"
+            android:text="Create"
+            android:textColor="#000"
+            android:visibility="invisible"
+            />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+</ScrollView>

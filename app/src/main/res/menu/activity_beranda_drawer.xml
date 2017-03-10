@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_komunitas"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="CommunityList" />
+        <item
+            android:id="@+id/nav_friend"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="Friendlist" />
+
+        <item
+            android:id="@+id/nav_undangan"
+            android:icon="@drawable/ic_email_black"
+            android:title="Invitation" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
+    </group>
+
+</menu>
