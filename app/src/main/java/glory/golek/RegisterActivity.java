@@ -7,11 +7,15 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -33,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
     private LocationManager locationManager;
     Location lokasiterahir;
     IsiDataUser isiDataUser;
+    TextView txt_idRegister;
+    Button btn_Generate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +49,11 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
         etUsername = (EditText) findViewById(R.id.etUserName);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass = (EditText) findViewById(R.id.etPass);
+        txt_idRegister = (TextView) findViewById(R.id.txt_idRegister);
+        btn_Generate = (Button) findViewById(R.id.btn_generateID);
         nope = " -- ";
         alamat = " -- ";
-        gambar = " -- ";
+        gambar = "akun2.png";
         pm = "-";
 
 
@@ -77,6 +85,17 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
             }
         });
 
+        btn_Generate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = "@"+etUsername.getText().toString();
+                txt_idRegister.setText(username);
+                Snackbar snackbar =  Snackbar.make(v,"ID berhasil dibuat !, silakan gunakan ID "+username+" sebagai ID untuk login",Snackbar.LENGTH_SHORT)
+                        .setAction("ID dibuat",null);
+                snackbar.show();
+            }
+        });
+
     }
 
     public void signin(View view) {
@@ -94,17 +113,23 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
         pass = etPass.getText().toString();
 
         if (lokasiterahir != null) {
-            formcek();
 
-                formcek();
-                isiDataUser = new IsiDataUser(nama,pass,username,alamat,Glat,Glon,nope,email,gambar,pm);
-                ref.push().setValue(isiDataUser);
-                clear();
-                Toast.makeText(getApplicationContext(), "Berhasil Daftar,Silakan Login", Toast.LENGTH_LONG).show();
-                finish();
-                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(i);
-                System.exit(0);
+
+                if (formcek() == false){
+                    Toast.makeText(getApplicationContext(), "Ada data yang kurang", Toast.LENGTH_SHORT).show();
+                }else {
+
+
+                    isiDataUser = new IsiDataUser(nama, pass, username, alamat, Glat, Glon, nope, email, gambar, pm);
+                    ref.push().setValue(isiDataUser);
+                    clear();
+                    Toast.makeText(getApplicationContext(), "Berhasil Daftar,Silakan Login", Toast.LENGTH_LONG).show();
+
+                    finish();
+                    Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(i);
+                    System.exit(0);
+                }
 
         } else {
             Toast.makeText(getApplicationContext(), "Sedang mengambil lokasi", Toast.LENGTH_LONG).show();
@@ -145,18 +170,20 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
 
         return true;
     }
-    private void formcek() {
+    private boolean formcek() {
 
         if (!validateName()) {
-            return;
+            return false;
         }
         if (!validatePass()) {
-            return;
+            return false;
         }
 
         if (!validateEmail()) {
-            return;
+            return false;
         }
+
+        return true;
 
     }
 

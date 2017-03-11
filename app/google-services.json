@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "912614857973",
+    "firebase_url": "https://golek-feca2.firebaseio.com",
+    "project_id": "golek-feca2",
+    "storage_bucket": "golek-feca2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912614857973:android:aba781d1aaf61f59",
+        "android_client_info": {
+          "package_name": "glory.golek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912614857973-u2m1h49nahd4i01f4a2lku46jnsaorl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "glory.golek",
+            "certificate_hash": "6dee4c938e63728cec14da4a716e8beba5630722"
+          }
+        },
+        {
+          "client_id": "912614857973-c9gqfee9gnubfqemqtgvtnjf7urdo6e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxIZ5QU7N_ljvfDLv-SVrj5GsA5pek4Vs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912614857973-c9gqfee9gnubfqemqtgvtnjf7urdo6e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

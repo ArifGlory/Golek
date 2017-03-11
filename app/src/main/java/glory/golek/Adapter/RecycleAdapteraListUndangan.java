@@ -57,6 +57,7 @@ public class RecycleAdapteraListUndangan extends RecyclerView.Adapter<RecycleVie
         GrefFriend = new Firebase("https://golek-feca2.firebaseio.com/user").child(key).child("zfriend");
 
 
+        Toast.makeText(context.getApplicationContext(), "Mengambil data...", Toast.LENGTH_LONG).show();
         try {
             Gref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -87,7 +88,7 @@ public class RecycleAdapteraListUndangan extends RecyclerView.Adapter<RecycleVie
             });
 
         }catch (Exception e){
-
+            Toast.makeText(context.getApplicationContext(), "gagal ambil data : "+e.toString(), Toast.LENGTH_LONG).show();
         }
 
     }

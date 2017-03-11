@@ -1,12 +1,21 @@
 package glory.golek;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -21,6 +30,14 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import javax.microedition.khronos.opengles.GL;
 
 import glory.golek.Fragment.FragmentMaps;
 import glory.golek.Fragment.FriendFragment;
@@ -28,18 +45,26 @@ import glory.golek.Fragment.ListChatFragment;
 import glory.golek.Fragment.ListUpdateFragment;
 
 public class BerandaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,LocationListener {
 
     Intent i;
     DialogInterface.OnClickListener listener;
     TabLayout tabLayout;
     ImageView imgProfil;
-    public static String nama,key,id;
+    public static String nama,key,id,gambar;
+    private String provider;
     double lat,lon;
+    private Double Glat, Glon;
+    private LocationManager locationManager;
+    Location lokasiterahir;
+    Firebase ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
+        Firebase.setAndroidContext(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Resources res = getResources();
@@ -50,9 +75,10 @@ public class BerandaActivity extends AppCompatActivity
         nama = i.getStringExtra("nama");
         key = i.getStringExtra("key");
         id = i.getStringExtra("id");
+        gambar = i.getStringExtra("gambar");
        // lat = i.getDoubleExtra("lat",lat);
         //lon = i.getDoubleExtra("lon",lon);
-
+        ref = new Firebase("https://golek-feca2.firebaseio.com/user").child(key);
 
 
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_map_black_36dp));
@@ -121,9 +147,41 @@ public class BerandaActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
-        ImageView imgProfil = (ImageView) headerView.findViewById(R.id.imageViewNavHeader);
+        final ImageView imgProfil = (ImageView) headerView.findViewById(R.id.imageViewNavHeader);
         TextView txtProfil = (TextView) headerView.findViewById(R.id.txtViewNavHeader);
         txtProfil.setText(nama);
+
+        //mengambil gambar profil
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://golek-feca2.appspot.com/file/");
+        StorageReference islandRef = storageRef.child(gambar);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imgProfil.setImageBitmap(bitmap);
+            }
+
+    });
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, false);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
+        Location location = locationManager.getLastKnownLocation(provider);
+
+
         imgProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,5 +287,36 @@ public class BerandaActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        lokasiterahir = location;
+        double lat = location.getLatitude();
+        double lon = location.getLongitude();
+
+        Glat = lat;
+        Glon = lon;
+        //Toast.makeText(BerandaActivity.this, "lat : "+Glat+"lon : "+Glon, Toast.LENGTH_SHORT).show();
+        ref.child("lat").setValue(Glat);
+        ref.child("lon").setValue(Glon);
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

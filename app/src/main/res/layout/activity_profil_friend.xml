@@ -27,6 +27,7 @@
                 android:layout_height="150dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/ln_logo"
+                android:id="@+id/img_friend"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
 

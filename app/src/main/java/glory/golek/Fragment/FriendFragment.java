@@ -123,7 +123,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
                     String idUM = (String) child.child("id").getValue();
                     list_idMapsFriend.add(idUM);
 
-                    Toast.makeText(getActivity().getApplication(),"listid : "+list_idMapsFriend.get(pos).toString()+"&pos:"+pos,Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity().getApplication(),"listid : "+list_idMapsFriend.get(pos).toString()+"&pos:"+pos,Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getActivity().getApplication(),"itungan nomer child : "+child.getChildrenCount(),Toast.LENGTH_SHORT).show();
                     pos++;
                 }
@@ -230,10 +230,11 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
                 .strokeColor(0x110000FF).strokeWidth(8).fillColor(0x110000FF);
         mMap.addCircle(mOptions);
 
-        mMap.addMarker(new MarkerOptions().position(sydney).title("naruto"));
+       // mMap.addMarker(new MarkerOptions().position(sydney).title("naruto"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 17));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
+        Toast.makeText(getActivity().getApplication(),"Mengambil lokasi..." ,Toast.LENGTH_LONG).show();
         ambil();
 
 

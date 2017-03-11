@@ -1,9 +1,12 @@
 package glory.golek.Fragment;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -58,21 +61,20 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         // Required empty public constructor
     }
 
-    Firebase ref,refMyKomunitas,refAnggota;
+    Firebase ref, refMyKomunitas, refAnggota;
     private GoogleMap mMap;
     public Marker marker_ghost;
     Intent i;
-    private String keyKom,alamat,email,keyKirim;
-    private Button btn_filter,btnfilter_komunitas,btnfilter_friend;
+    private String keyKom, alamat, email, keyKirim;
+    private Button btn_filter, btnfilter_komunitas, btnfilter_friend;
     private LinearLayout linefilter;
-    private Animation fab_open,fab_close,rotate_forward,rotate_backward;
+    private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     private Boolean isFabOpen = false;
     int iconMarker = 0;
     public static List<String> list_idMyKom = new ArrayList();
     public static List<String> list_idKom = new ArrayList();
     public static List<String> list_keyKom = new ArrayList();
     public static List<String> list_anggotaKom = new ArrayList();
-
 
 
     @Override
@@ -88,11 +90,11 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         btnfilter_friend = (Button) view.findViewById(R.id.btnfilter_Friend);
         btnfilter_komunitas = (Button) view.findViewById(R.id.btnfilter_komunitas);
         linefilter = (LinearLayout) view.findViewById(R.id.line_btnFilter);
-        fab_open = AnimationUtils.loadAnimation(view.getContext(),R.anim.fab_open);
-        fab_close = AnimationUtils.loadAnimation(view.getContext(),R.anim.fab_close);
-        rotate_forward = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate_forward);
-        rotate_backward = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate_backward);
-        keyKom=" ";
+        fab_open = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_close);
+        rotate_forward = AnimationUtils.loadAnimation(view.getContext(), R.anim.rotate_forward);
+        rotate_backward = AnimationUtils.loadAnimation(view.getContext(), R.anim.rotate_backward);
+        keyKom = " ";
         keyKirim = " ";
         final FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -136,7 +138,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     list_idMyKom.clear();
-                    for (DataSnapshot child : dataSnapshot.getChildren()){
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String id_kom = child.child("id").getValue().toString();
                         list_idMyKom.add(id_kom);
                         //Toast.makeText(getActivity().getApplication(),""+id_kom ,Toast.LENGTH_LONG).show();
@@ -148,7 +150,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -158,12 +160,12 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         */
 
 
-        return  view;
+        return view;
     }
 
-    public void animateFB(){
+    public void animateFB() {
 
-        if(isFabOpen){
+        if (isFabOpen) {
 
             linefilter.startAnimation(rotate_backward);
             linefilter.startAnimation(fab_close);
@@ -181,7 +183,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
             linefilter.setClickable(true);
             //fab2.setClickable(true);
             isFabOpen = true;
-            Log.d("fab","open");
+            Log.d("fab", "open");
 
         }
 
@@ -191,7 +193,17 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-        //mMap.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
 
         mMap.clear();
         LatLng lampung = new LatLng(-5.382351, 105.257791);
@@ -201,10 +213,11 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                 .strokeColor(0x110000FF).strokeWidth(8).fillColor(0x110000FF);
         mMap.addCircle(mOptions);
 
-        mMap.addMarker(new MarkerOptions().position(lampung).title("lokasi"));
+      //  mMap.addMarker(new MarkerOptions().position(lampung).title("lokasi"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lampung, 17));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lampung));
 
+        Toast.makeText(getActivity().getApplication(),"Mengambil lokasi..." ,Toast.LENGTH_LONG).show();
         ambil();
 
 
@@ -259,7 +272,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
 
                                    String idAnggota = child.child("id").getValue().toString();
                                    list_anggotaKom.add(idAnggota);
-                                   Toast.makeText(getActivity(), "anggota : "+idAnggota, Toast.LENGTH_LONG).show();
+                              //     Toast.makeText(getActivity(), "anggota : "+idAnggota, Toast.LENGTH_LONG).show();
                                }
                            }
 
@@ -305,6 +318,13 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
 
            }
        });
+
+
+    }
+
+
+    public void sendLocation(){
+
 
 
     }
@@ -376,6 +396,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
 
         }catch (Exception e ){
             Log.e("Eror Maps Ambildata","Erornya : "+e);
+            Toast.makeText(getActivity().getApplication(),"Gagal mengambil lokasi : "+e.toString() ,Toast.LENGTH_LONG).show();
         }
 
     }

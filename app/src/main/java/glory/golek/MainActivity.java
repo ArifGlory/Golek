@@ -66,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
                     String id = child.child("id").getValue().toString();
                     String pass = child.child("password").getValue().toString();
                     String nama = child.child("nama").getValue().toString();
+                    String image = child.child("gambar").getValue().toString();
+
                     double lat   = (Double) child.child("lat").getValue();
                     double lon = (Double) child.child("lon").getValue();
                     try {
-                        if (id.equals("@"+etUser.getText().toString()) && pass.equals(etPass.getText().toString()) ) {
+                        if (id.equals(etUser.getText().toString()) && pass.equals(etPass.getText().toString()) ) {
                             //Toast.makeText(getApplicationContext(), "lat :"+lat+",lon : "+lon, Toast.LENGTH_LONG).show();
                            // Toast.makeText(getApplicationContext(), "id :"+id+",nama : "+nama, Toast.LENGTH_LONG).show();
                             finish();
@@ -77,10 +79,13 @@ public class MainActivity extends AppCompatActivity {
                             i.putExtra("key",child.getKey().toString());
                             i.putExtra("nama",nama);
                             i.putExtra("id",id);
+                            i.putExtra("gambar",image);
                            // i.putExtra("lat",lat);
                             //i.putExtra("lon",lon);
                             startActivity(i);
                             System.exit(0);
+                        }else {
+                            Toast.makeText(getApplicationContext(),"Username atau password anda salah",Toast.LENGTH_SHORT).show();
                         }
 
                     }

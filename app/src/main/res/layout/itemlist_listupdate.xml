@@ -25,6 +25,7 @@
             android:id="@+id/img_iconuserupdate"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
+            android:src="@drawable/akun"
             android:paddingTop="8dp"
             />
 

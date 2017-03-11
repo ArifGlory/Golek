@@ -62,24 +62,29 @@ public class RecycleAdapteraListUpdate extends RecyclerView.Adapter<RecycleViewH
         Gref = new Firebase("https://golek-feca2.firebaseio.com/timeline");
         refZfriend = new Firebase("https://golek-feca2.firebaseio.com/user").child(BerandaActivity.key).child("zfriend");
 
-        refZfriend.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                list_friendTL.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String idUM = (String) child.child("id").getValue();
-                    list_friendTL.add(idUM);
-                    stack_friendTL.push(idUM);
+        try {
+
+            refZfriend.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    list_friendTL.clear();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        String idUM = (String) child.child("id").getValue();
+                        list_friendTL.add(idUM);
+                        stack_friendTL.push(idUM);
+
+                    }
+                    list_friendTL.add(BerandaActivity.id);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
                 }
-                list_friendTL.add(BerandaActivity.id);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+            });
+        }catch (Exception e){
+           // Toast.makeText(context.getApplicationContext(), "eror refZfriend :"+e.toString(), Toast.LENGTH_SHORT).show();
+        }
         //list_friendTL.add(BerandaActivity.id);
 
         try {
@@ -152,6 +157,7 @@ public class RecycleAdapteraListUpdate extends RecyclerView.Adapter<RecycleViewH
         }catch (Exception e){
 
             Log.e("salah get data nya : "," "+e);
+           // Toast.makeText(context.getApplicationContext(), "error ref  :"+e.toString(), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -171,12 +177,16 @@ public class RecycleAdapteraListUpdate extends RecyclerView.Adapter<RecycleViewH
     public void onBindViewHolder(RecycleViewHolderListUpdate holder, int position) {
 
 
-        holder.txtNamaUserUpdate.setText(stack_namaTL.pop().toString());
-        holder.txtTipeUpdate.setText(stack_statusTL.pop().toString());
-        //holder.img_dpUpdate.setImageResource(R.drawable.greencircle);
-        holder.img_userUpdate.setImageResource(R.drawable.greencircle);
-        //holder.txtPMUpdate.setText(list_pmTL.get(position).toString());
-        holder.txtPMUpdate.setText(stack_pmTL.pop().toString());
+        try {
+            holder.txtNamaUserUpdate.setText(stack_namaTL.pop().toString());
+            holder.txtTipeUpdate.setText(stack_statusTL.pop().toString());
+            //holder.img_dpUpdate.setImageResource(R.drawable.greencircle);
+            // holder.img_userUpdate.setImageResource(R.drawable.greencircle);
+            //holder.txtPMUpdate.setText(list_pmTL.get(position).toString());
+            holder.txtPMUpdate.setText(stack_pmTL.pop().toString());
+        }catch (Exception e){
+           // Toast.makeText(context.getApplicationContext(), "eror holder :"+e.toString(), Toast.LENGTH_SHORT).show();
+        }
 
         holder.txtNamaUserUpdate.setOnClickListener(clicklistener);
         holder.txtPMUpdate.setOnClickListener(clicklistener);

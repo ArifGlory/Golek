@@ -17,6 +17,7 @@ public class RecycleViewHolderListFriend extends RecyclerView.ViewHolder {
     public ImageView img_iconlistfriend;
     public RelativeLayout relaFriend;
 
+
     public RecycleViewHolderListFriend(View itemView) {
         super(itemView);
 
