@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(MainActivity.this,"Data Berhasil Diambil", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Anda terhubung ke server", Toast.LENGTH_LONG).show();
             }
 
             @Override

@@ -278,7 +278,7 @@ public class ProfilKomunitasActivity extends AppCompatActivity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     img_DPKom.setImageBitmap(bitmap);
-                    Toast.makeText(ProfilKomunitasActivity.this," "+ resultCode, Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(ProfilKomunitasActivity.this," "+ resultCode, Toast.LENGTH_SHORT).show();
 
                     //gambar = filePath.getLastPathSegment();
 

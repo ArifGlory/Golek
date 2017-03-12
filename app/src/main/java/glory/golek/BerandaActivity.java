@@ -28,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -149,6 +150,7 @@ public class BerandaActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         final ImageView imgProfil = (ImageView) headerView.findViewById(R.id.imageViewNavHeader);
         TextView txtProfil = (TextView) headerView.findViewById(R.id.txtViewNavHeader);
+        LinearLayout line_header = (LinearLayout) headerView.findViewById(R.id.line_header);
         txtProfil.setText(nama);
 
         //mengambil gambar profil
@@ -193,6 +195,15 @@ public class BerandaActivity extends AppCompatActivity
             }
         });
         txtProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i = new Intent(BerandaActivity.this,ProfilUserActivity.class);
+                i.putExtra("id",id);
+                i.putExtra("nama",nama);
+                startActivity(i);
+            }
+        });
+        line_header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i = new Intent(BerandaActivity.this,ProfilUserActivity.class);
@@ -252,9 +263,7 @@ public class BerandaActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }

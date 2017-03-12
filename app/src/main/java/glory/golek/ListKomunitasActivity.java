@@ -34,7 +34,7 @@ public class ListKomunitasActivity extends AppCompatActivity {
         fab_close = AnimationUtils.loadAnimation(this,R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
-        et_carikom = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextCariKomunitas);
+
 
         recycler_listKomunitas = (RecyclerView) findViewById(R.id.recycler_listkomunitas);
         adapter = new RecycleAdapteraListKomunitas(this);

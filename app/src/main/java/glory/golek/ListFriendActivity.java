@@ -34,7 +34,7 @@ public class ListFriendActivity extends AppCompatActivity {
         fab_close = AnimationUtils.loadAnimation(this,R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
-        et_cari = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextCari);
+
 
         adapter = new RecycleAdapteraListFriend(this);
         recycler_listfriend = (RecyclerView) findViewById(R.id.recycler_listfriend);

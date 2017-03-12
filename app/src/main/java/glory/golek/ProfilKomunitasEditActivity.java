@@ -97,6 +97,7 @@ public class ProfilKomunitasEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                try{
                 if (formcek() == false){
                     Toast.makeText(getApplicationContext()," Ada data yang kurang ",Toast.LENGTH_SHORT).show();
                 }
@@ -108,13 +109,17 @@ public class ProfilKomunitasEditActivity extends AppCompatActivity {
                     ref.child("tipe").setValue(tipe);
                     ref.child("lat").setValue(Glat);
                     ref.child("lon").setValue(Glon);
-                    i = new Intent(ProfilKomunitasEditActivity.this,BerandaActivity.class);
-                    i.putExtra("id",BerandaActivity.id);
-                    i.putExtra("nama",BerandaActivity.nama);
-                    i.putExtra("key",BerandaActivity.key);
+                    i = new Intent(ProfilKomunitasEditActivity.this, BerandaActivity.class);
+                    i.putExtra("id", BerandaActivity.id);
+                    i.putExtra("nama", BerandaActivity.nama);
+                    i.putExtra("key", BerandaActivity.key);
+                    i.putExtra("gambar", BerandaActivity.gambar);
                     startActivity(i);
 
                     Toast.makeText(getApplicationContext(), " Berhasil diedit ", Toast.LENGTH_SHORT).show();
+                }
+                }catch (Exception e){
+
                 }
             }
         });

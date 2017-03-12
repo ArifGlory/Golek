@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -31,12 +32,13 @@ public class RecycleAdapteraListKomunitas extends RecyclerView.Adapter<RecycleVi
     Context context;
     Intent i;
     public static List<String> list_idKom = new ArrayList();
+    public static List<String> list_keyKom = new ArrayList();
     public static List<String> list_namaKom = new ArrayList();
     public static List<String> list_gambarKom = new ArrayList();
     public static String namaCustomer;
     public static String tglCustomer;
     String key = "";
-    Firebase Gref,refLagi;
+    Firebase Gref,refKom;
     Bitmap bitmap;
 
     String[] nama ={"Komunitas 1 ","Komunitas 2","Komunitas 3"};
@@ -47,6 +49,9 @@ public class RecycleAdapteraListKomunitas extends RecyclerView.Adapter<RecycleVi
         inflater = LayoutInflater.from(context);
         Firebase.setAndroidContext(this.context);
         Gref = new Firebase("https://golek-feca2.firebaseio.com/user").child(BerandaActivity.key).child("zmykomunitas");
+        refKom = new Firebase("https://golek-feca2.firebaseio.com/komunitas");
+
+        try{
         Gref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -69,7 +74,39 @@ public class RecycleAdapteraListKomunitas extends RecyclerView.Adapter<RecycleVi
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-        });
+        });}
+        catch (Exception e){
+
+        }
+
+        try{
+            refKom.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()){
+
+                        String id_kom = child.child("id").getValue().toString();
+                        String key_kom = child.getKey();
+                        if (list_idKom.contains(id_kom)){
+                            list_keyKom.add(key_kom);
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+        }catch (Exception e){
+
+
+        }
 
     }
 
@@ -108,10 +145,11 @@ public class RecycleAdapteraListKomunitas extends RecyclerView.Adapter<RecycleVi
 
             RecycleViewHolderListKomunitas vHolder = (RecycleViewHolderListKomunitas) v.getTag();
             int position = vHolder.getPosition();
-            //Toast.makeText(context.getApplicationContext(), "Kunci Cusnya : "+Glist_dari_keyCus.get(position).toString(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context.getApplicationContext(), "Kunci  : "+list_keyKom.get(position).toString(), Toast.LENGTH_SHORT).show();
             i = new Intent(v.getContext(),ProfilKomunitasActivity.class);
             i.putExtra("id",list_idKom.get(position).toString());
             i.putExtra("nama",list_namaKom.get(position).toString());
+            i.putExtra("key",list_keyKom.get(position).toString());
             context.startActivity(i);
 
 

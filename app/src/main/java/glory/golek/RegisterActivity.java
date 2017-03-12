@@ -1,6 +1,7 @@
 package glory.golek;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -10,6 +11,7 @@ import android.location.LocationManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,11 +36,13 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
     EditText etUsername, etEmail, etPass;
     private String username, email, pass, nope, alamat, provider, nama,gambar,pm;
     private Double Glat, Glon;
+    private Double deflat, deflon;
     private LocationManager locationManager;
     Location lokasiterahir;
     IsiDataUser isiDataUser;
     TextView txt_idRegister;
     Button btn_Generate;
+    DialogInterface.OnClickListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +53,14 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
         etUsername = (EditText) findViewById(R.id.etUserName);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass = (EditText) findViewById(R.id.etPass);
-        txt_idRegister = (TextView) findViewById(R.id.txt_idRegister);
-        btn_Generate = (Button) findViewById(R.id.btn_generateID);
+   //     txt_idRegister = (TextView) findViewById(R.id.txt_idRegister);
+     //   btn_Generate = (Button) findViewById(R.id.btn_generateID);
         nope = " -- ";
         alamat = " -- ";
         gambar = "akun2.png";
         pm = "-";
+        deflat = -5.382351;
+        deflon = 105.257791;
 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -76,23 +82,12 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(RegisterActivity.this, "Anda Terhubung Ke Server", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(RegisterActivity.this, "Anda Terhubung Ke Server", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
-            }
-        });
-
-        btn_Generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                username = "@"+etUsername.getText().toString();
-                txt_idRegister.setText(username);
-                Snackbar snackbar =  Snackbar.make(v,"ID berhasil dibuat !, silakan gunakan ID "+username+" sebagai ID untuk login",Snackbar.LENGTH_SHORT)
-                        .setAction("ID dibuat",null);
-                snackbar.show();
             }
         });
 
@@ -114,7 +109,6 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
 
         if (lokasiterahir != null) {
 
-
                 if (formcek() == false){
                     Toast.makeText(getApplicationContext(), "Ada data yang kurang", Toast.LENGTH_SHORT).show();
                 }else {
@@ -124,15 +118,33 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
                     ref.push().setValue(isiDataUser);
                     clear();
                     Toast.makeText(getApplicationContext(), "Berhasil Daftar,Silakan Login", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("ID Berhasil dibuad, ID Anda : "+username);
+                    builder.setCancelable(false);
 
-                    finish();
-                    Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                    listener = new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(which == DialogInterface.BUTTON_POSITIVE){
+                                dialog.cancel();
+                            }
+
+
+                        }
+                    };
+                    builder.setPositiveButton("Ok",listener);
+                    builder.show();
+
+                    //finish();
+                    /*Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(i);
-                    System.exit(0);
+                    System.exit(0);*/
                 }
 
         } else {
             Toast.makeText(getApplicationContext(), "Sedang mengambil lokasi", Toast.LENGTH_LONG).show();
+
         }
 
     }
@@ -140,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
     private void clear() {
         etEmail.setText(null);
         etUsername.setText(null);
-        etUsername.setText(null);
+        etPass.setText(null);
     }
     private boolean validateName() {
         if (etUsername.getText().toString().trim().isEmpty()) {
@@ -186,6 +198,9 @@ public class RegisterActivity extends AppCompatActivity implements android.locat
         return true;
 
     }
+
+
+
 
     @Override
     public void onLocationChanged(Location location) {

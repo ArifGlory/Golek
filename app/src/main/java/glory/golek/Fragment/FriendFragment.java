@@ -1,9 +1,12 @@
 package glory.golek.Fragment;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.StringDef;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -52,12 +55,12 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
         // Required empty public constructor
     }
 
-    Firebase ref,refZfriend;
+    Firebase ref, refZfriend;
     private GoogleMap mMap;
     public Marker marker_ghost;
-    private Button btn_filter,btnfilter_friend,btnfilter_komunitas;
+    private Button btn_filter, btnfilter_friend, btnfilter_komunitas;
     LinearLayout lineFilter;
-    private Animation fab_open,fab_close,rotate_forward,rotate_backward;
+    private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     private Boolean isFabOpen = false;
     private int pos;
     Intent i;
@@ -68,7 +71,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view =  inflater.inflate(R.layout.fragment_friend, container, false);
+        final View view = inflater.inflate(R.layout.fragment_friend, container, false);
         Firebase.setAndroidContext(this.getActivity());
         ref = new Firebase("https://golek-feca2.firebaseio.com/user");
         refZfriend = new Firebase("https://golek-feca2.firebaseio.com/user").child(BerandaActivity.key).child("zfriend");
@@ -76,10 +79,10 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
         btn_filter = (Button) view.findViewById(R.id.btnFilter);
         btnfilter_friend = (Button) view.findViewById(R.id.btnfilter_Friend);
         btnfilter_komunitas = (Button) view.findViewById(R.id.btnfilter_komunitas);
-        fab_open = AnimationUtils.loadAnimation(view.getContext(),R.anim.fab_open);
-        fab_close = AnimationUtils.loadAnimation(view.getContext(),R.anim.fab_close);
-        rotate_forward = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate_forward);
-        rotate_backward = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate_backward);
+        fab_open = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_close);
+        rotate_forward = AnimationUtils.loadAnimation(view.getContext(), R.anim.rotate_forward);
+        rotate_backward = AnimationUtils.loadAnimation(view.getContext(), R.anim.rotate_backward);
         final FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         SupportMapFragment fragment = new SupportMapFragment();
@@ -92,7 +95,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    animateFB();
+                animateFB();
                 //lineFilter.setVisibility(v.VISIBLE);
             }
         });
@@ -123,7 +126,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
                     String idUM = (String) child.child("id").getValue();
                     list_idMapsFriend.add(idUM);
 
-                   // Toast.makeText(getActivity().getApplication(),"listid : "+list_idMapsFriend.get(pos).toString()+"&pos:"+pos,Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity().getApplication(),"listid : "+list_idMapsFriend.get(pos).toString()+"&pos:"+pos,Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getActivity().getApplication(),"itungan nomer child : "+child.getChildrenCount(),Toast.LENGTH_SHORT).show();
                     pos++;
                 }
@@ -140,9 +143,9 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    public void animateFB(){
+    public void animateFB() {
 
-        if(isFabOpen){
+        if (isFabOpen) {
 
             lineFilter.startAnimation(rotate_backward);
             lineFilter.startAnimation(fab_close);
@@ -160,7 +163,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
             lineFilter.setClickable(true);
             //fab2.setClickable(true);
             isFabOpen = true;
-            Log.d("fab","open");
+            Log.d("fab", "open");
 
         }
 
@@ -179,7 +182,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
                     }
 
                     iconmarker = R.drawable.marker_user;
-                    for (int c=0;c<list_idMapsFriend.size();c++) {
+                    for (int c = 0; c < list_idMapsFriend.size(); c++) {
 
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             String idUser = (String) child.child("id").getValue();
@@ -208,8 +211,8 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
 
-        }catch (Exception e ){
-            Log.e("Eror Maps Ambildata","Erornya : "+e);
+        } catch (Exception e) {
+            Log.e("Eror Maps Ambildata", "Erornya : " + e);
         }
 
     }
@@ -219,7 +222,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-        //mMap.setMyLocationEnabled(true);
+
 
         mMap.clear();
         LatLng lampung = new LatLng(-5.382351, 105.257791);

@@ -67,7 +67,7 @@ public class ProfilFriendActivity extends AppCompatActivity {
                     String gmbr_user = child.child("gambar").getValue().toString();
                     try {
                         if (idUser.equals(id) ) {
-                            Toast.makeText(getApplicationContext(), "Alamat :"+alamatUser, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Alamat :"+alamatUser, Toast.LENGTH_LONG).show();
                             txtAlamat.setText(alamatUser);
                             txtPm.setText(pmUser);
                             getSupportActionBar().setTitle(namaUser);

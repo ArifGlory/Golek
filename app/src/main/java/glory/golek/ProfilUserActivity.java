@@ -86,7 +86,7 @@ public class ProfilUserActivity extends AppCompatActivity {
                     String emailUser = child.child("email").getValue().toString();
                     try {
                         if (idUser.equals(id) ) {
-                            Toast.makeText(getApplicationContext(), "Alamat :"+alamatUser, Toast.LENGTH_LONG).show();
+                           // Toast.makeText(getApplicationContext(), "Alamat :"+alamatUser, Toast.LENGTH_LONG).show();
                             txtAlamat.setText(alamatUser);
                             txtPm.setText(pmUser);
                             getSupportActionBar().setTitle(namaUser);

@@ -115,7 +115,7 @@ public class RecycleAdapteraListFriend extends RecyclerView.Adapter<RecycleViewH
             });
 
         }catch (Exception e){
-            Toast.makeText(context.getApplicationContext(), "eror getdata gambar :"+e.toString(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context.getApplicationContext(), "eror getdata gambar :"+e.toString(), Toast.LENGTH_SHORT).show();
         }
 
 

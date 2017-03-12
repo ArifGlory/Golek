@@ -69,6 +69,7 @@ public class ProfilEditActivity extends AppCompatActivity {
                 i.putExtra("id",id);
                 i.putExtra("nama",BerandaActivity.nama);
                 i.putExtra("key",BerandaActivity.key);
+                i.putExtra("gambar",BerandaActivity.gambar);
                 startActivity(i);
 
             }

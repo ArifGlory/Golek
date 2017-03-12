@@ -56,7 +56,7 @@ public class BuatKomunitasActivity extends AppCompatActivity {
         btn_createKomunitas = (Button) findViewById(R.id.btnCreateKOmunitas);
 
         adm = BerandaActivity.id;
-        gambar = " ";
+        gambar = "akun2.png";
         tag = "Find ur Comunity with Golek!";
 
         btn_pickBasecamp.setOnClickListener(new View.OnClickListener() {
